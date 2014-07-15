@@ -6,7 +6,8 @@ angular.module('sleepspotApp', [
   'ngSanitize',
   'ui.bootstrap',
   'ngRoute',
-  'btford.socket-io'
+  'btford.socket-io',
+  'ui.bootstrap'
 ])
   .config (($routeProvider, $locationProvider, $httpProvider) ->
     $routeProvider

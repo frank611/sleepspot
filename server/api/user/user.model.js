@@ -3,6 +3,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var crypto = require('crypto');
+var fb = require('fb');
 
 var authTypes = ['github', 'twitter', 'facebook', 'google'];
 
@@ -16,10 +17,7 @@ var UserSchema = new Schema({
   hashedPassword: String,
   provider: String,
   salt: String,
-  facebook: {},
-  twitter: {},
-  github: {},
-  google: {}
+  facebook: {}
 });
 
 /**
@@ -146,6 +144,20 @@ UserSchema.methods = {
     if (!password || !this.salt) return '';
     var salt = new Buffer(this.salt, 'base64');
     return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
+  },
+
+  getFbEvents: function(cb) {
+    fb.setAccessToken(this.facebook.accessToken);
+    fb.api('/' + this.facebook.id + '/events', function (res) {
+      cb(res.data);
+    });
+  },
+
+  getHostedFbEvents: function(cb) {
+    fb.setAccessToken(this.facebook.accessToken);
+    fb.api('/' + this.facebook.id + '/events/created', function (res) {
+      cb(res.data);
+    });
   }
 };
 

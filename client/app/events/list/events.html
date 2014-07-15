@@ -1,0 +1,40 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container event-list">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="page-header">
+        <h1>Upcoming events</h1>
+      </div>
+
+      <div class="list-group" ng-repeat="event in events | orderBy:'start_time'">
+        <a ng-href="/events/{{ event.id }}" class="list-group-item active">
+          <div class="row">
+            <div class="col-sm-1"><img src="http://lorempixel.com/100/100" alt="Profile Picture" class="host-pic"></div>
+            <div class="col-sm-11">
+              <h4 class="list-group-item-heading">{{ event.name }}</h4>
+              <p class="list-group-item-text">{{ event.relativeDate }}</p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="page-header">
+        <h1>Manage hosted events</h1>
+      </div>
+
+      <div class="list-group">
+          <a href="/events/mine/{{ event.id }}" class="list-group-item" ng-repeat="event in hostedEvents | orderBy:'start_time'">
+            <div class="row">
+              <div class="col-sm-1"><img src="http://lorempixel.com/100/100" alt="Profile Picture" class="host-pic"></div>
+              <div class="col-sm-11">
+                <h4 class="list-group-item-heading">{{ event.name }}</h4>
+                <p class="list-group-item-text">{{ event.relativeDate }}</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

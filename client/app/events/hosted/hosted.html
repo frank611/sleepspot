@@ -1,0 +1,49 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container event-list">
+	<div ng-show="event.host">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="page-header">
+					<h1>{{ event.name }}</h1>
+				</div>
+
+				<div class="list-group">
+					<a class="list-group-item" ng-repeat="spot in event.spots">
+						<div class="row">
+							<div class="col-sm-7">
+								<h4 class="list-group-item-heading">{{ spot.name }}</h4>
+								<p class="list-group-item-text">
+									<span ng-repeat="occupant in spot.occupants" ng-show="spot.occupants.length">{{ occupant.person.name }}</span>
+									<span ng-hide="spot.occupants.length">Nobody reserved this spot</span>
+								</p>
+							</div>
+							<div class="col-sm-5 text-right places">
+								<span class="glyphicon glyphicon-minus" ng-click="removeSpotPlace($index)"></span>
+								{{ spot.places }}
+								<span class="glyphicon glyphicon-plus" ng-click="addSpotPlace($index)"></span>
+							</div>
+						</div>
+					</a>
+					<div class="list-group-item disabled">
+						<div class="row">
+							<div class="col-sm-12">
+								<form ng-submit="addSpot()" class="navbar-form navbar-left" role="form">
+									<div class="form-group">
+										<input type="text" class="form-control" placeholder="Sleeping place name" ng-model="newSpotName">
+										<input type="number" class="form-control" min="1" placeholder="# of spots" ng-model="newSpotPlaces">
+									</div>
+									<button type="submit" class="btn btn-default">Add</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div ng-hide="event.host">
+		SleepSpot has not been activated for this event. <a ng-click="activateSleepSpot()">Activate it now.</a>
+	</div>
+</div>

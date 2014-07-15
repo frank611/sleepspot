@@ -1,0 +1,30 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div ng-show="event.host">
+	<div class="container event-list">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="page-header">
+				<h1>{{ event.name }}</h1>
+			</div>
+
+			<div class="list-group">
+				<a class="list-group-item" ng-repeat="spot in event.spots" ng-click="reserveSpot($index)">
+					<div class="row">
+						<div class="col-sm-7">
+							<h4 class="list-group-item-heading">{{ spot.name }}</h4>
+							<p class="list-group-item-text">{{ spot.occupants.length }} out of {{ spot.places }} places reserved</p>
+						</div>
+						<div class="col-sm-5 text-right places">
+							<img ng-src="https://graph.facebook.com/{{ occupant.person.facebook.id }}/picture" class="img-circle reservation-profile-pic" alt="Circular Image" tooltip="{{ occupant.person.name }}" ng-repeat="occupant in spot.occupants">
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div ng-hide="event.host">
+	SleepSpot has not been activated for this event. <a ng-click="activateSleepSpot()">Activate it now.</a>
+</div>
